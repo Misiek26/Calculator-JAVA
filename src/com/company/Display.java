@@ -7,9 +7,7 @@ import java.awt.*;
 public class Display extends JPanel {
     Display(){
         Border border = BorderFactory.createLineBorder(Color.DARK_GRAY,2);
-        //this.setBorder(border);
         this.setLayout(new BorderLayout());
-        //this.setBackground(Color.green);
 
         JLabel name = new JLabel(); // Label which display program name
         JLabel result = new JLabel(); // Label used to display result return
@@ -28,7 +26,7 @@ public class Display extends JPanel {
         result.setOpaque(true);
 
         this.add(name,BorderLayout.NORTH);
-        this.add(result, BorderLayout.SOUTH);
+        this.add(result,BorderLayout.SOUTH);
 
     }
 }
