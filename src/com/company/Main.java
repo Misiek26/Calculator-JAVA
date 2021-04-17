@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-
+    static Display display;
     public static void main(String[] args) {
         JFrame frame = new JFrame("Calculator ver.1.0");
         frame.setSize(380,500);
@@ -12,7 +12,7 @@ public class Main {
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
-        Display display = new Display();
+        display = new Display();
         display.setPreferredSize(new Dimension(98,150));
         frame.add(display, BorderLayout.NORTH);
 
@@ -21,5 +21,11 @@ public class Main {
         frame.add(keyboard, BorderLayout.SOUTH);
 
         frame.setVisible(true);
+    }
+
+    //----- Function used to display numbers on the screen  ------
+
+    public static void insertToDisplay(String num){
+        display.result.setText(num);
     }
 }
