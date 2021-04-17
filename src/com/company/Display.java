@@ -5,7 +5,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class Display extends JPanel {
-    private static String numer;
     public JLabel result;
     Display(){
         Border border = BorderFactory.createLineBorder(Color.DARK_GRAY,2);
@@ -30,10 +29,5 @@ public class Display extends JPanel {
         this.add(name,BorderLayout.NORTH);
         this.add(result,BorderLayout.SOUTH);
 
-    }
-
-    public void insert(char x){
-        this.numer+=x;
-        result.setText(this.numer);
     }
 }

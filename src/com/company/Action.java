@@ -1,24 +1,21 @@
 package com.company;
 
-import jdk.dynalink.Operation;
-
 import java.util.ArrayList;
-import java.util.function.LongToDoubleFunction;
 
 public class Action {
     static String text="";
     static double resultOperation;
     static int countEqual = 0;
     static boolean isZero = false;
+    static boolean insOperator = true;
+    static boolean isPoint = false;
 
     static ArrayList<String> number = new ArrayList<>();
     static ArrayList<String> operator = new ArrayList<>();
     static String result;
 
     public static void insert(String x){
-
-        if(x=="+" || x=="*" || x=="/" || x=="-" || x=="C" || x=="x2" || x=="=") {
-
+        if((x.equals("+") || x.equals("*") || x.equals("/") || x.equals("-") || x.equals("C") || x.equals("x2") || x.equals("=") || x.equals("√") || x.equals("%")) && (!insOperator)) {
             if(countEqual>0){
                 number.add(result);
                 countEqual = 0;
@@ -27,6 +24,8 @@ public class Action {
                 number.add(text);
 
             text="";
+            insOperator = true;
+            isPoint = false;
 
             switch(x){
                 case "+":
@@ -67,17 +66,76 @@ public class Action {
                         text = Double.toString(resultOperation);
 
                     Main.insertToDisplay(text);
+                    result = text;
                     text = "";
                     number.clear();
                     operator.clear();
+                    insOperator = false;
+                    countEqual++;
+                    break;
+
+                case "√":
+                    if(Double.parseDouble(number.get(0))>=0){
+                        resultOperation = Math.sqrt(Double.parseDouble(number.get(0)));
+
+                        if(resultOperation%1==0) {
+                            long resultOperationLong = Math.round(resultOperation);
+                            text = Long.toString(resultOperationLong);
+                        }
+                        else
+                            text = Double.toString(resultOperation);
+
+                        Main.insertToDisplay(text);
+                        result = text;
+                        text = "";
+                        number.clear();
+                        operator.clear();
+                        insOperator = false;
+                        countEqual++;
+                    }
+                    else{
+                        Main.insertToDisplay("--> √(x<0) <-- ");
+                    }
+                    break;
+
+                case "%":
+                    resultOperation = Double.parseDouble(number.get(0)) * 0.01;
+
+                    if(resultOperation%1==0) {
+                        long resultOperationLong = Math.round(resultOperation);
+                        text = Long.toString(resultOperationLong);
+                    }
+                    else
+                        text = Double.toString(resultOperation);
+
+                    Main.insertToDisplay(text);
+                    result = text;
+                    text = "";
+                    number.clear();
+                    operator.clear();
+                    insOperator = false;
+                    countEqual++;
                     break;
 
                 default:break;
             }
         }
         else {
-            if(text.length()!=11){
-                text += x;
+            if(text.length()!=11 && !x.equals("+") && !x.equals("-") && !x.equals("*") && !x.equals("/") && !x.equals("=") && !x.equals("%") && !x.equals("√") && !x.equals("x2") && !x.equals("C")){
+                if(x.equals(".") && !isPoint) {
+                    isPoint = true;
+                    text += x;
+                    insOperator = false;
+                }
+                else if(x.equals("."));
+                else {
+                    text += x;
+                    insOperator = false;
+                }
+
+                if(x.equals(".") && text.equals("."))
+                    text = "0.";
+
                 Main.insertToDisplay(text);
             }
         }
@@ -87,6 +145,7 @@ public class Action {
 
     public static void isEguals(){
         resultOperation = Double.parseDouble(number.get(0));
+        insOperator = false;
         result="";
 
         for(int i=1; i<number.size(); i++){
@@ -120,7 +179,7 @@ public class Action {
         }
 
         result = text;
-        if(isZero == false) {
+        if(!isZero) {
             Main.insertToDisplay(text);
             text = "";
             number.clear();

@@ -6,11 +6,14 @@ import java.awt.*;
 public class Main {
     static Display display;
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Calculator ver.1.0");
+        JFrame frame = new JFrame("Kalkulator");
+        ImageIcon icon = new ImageIcon("logo.jpg");
+
         frame.setSize(380,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
+        frame.setIconImage(icon.getImage());
 
         display = new Display();
         display.setPreferredSize(new Dimension(98,150));
